@@ -1,6 +1,6 @@
 module Main where
 import Control.Monad (liftM)
-import Control.Monad.Trans.Error
+import Control.Monad.Except hiding (throwError)
 import System.Environment
 import Text.ParserCombinators.Parsec hiding (spaces)
 
@@ -142,9 +142,8 @@ showError (Parser parseErr) = "Parse error at " ++ show parseErr
 
 instance Show LispError where show = showError
 
-instance Error LispError where
-  noMsg = Default "An error has occurred"
-  strMsg = Default
+throwError :: LispError -> Either LispError value
+throwError error = Left error
 
 type ThrowsError = Either LispError
 
