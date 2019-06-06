@@ -65,4 +65,4 @@ parseDottedList = do head <- endBy parseExpr spaces
 parseQuoted :: Parser LispVal
 parseQuoted = do char '\''
                  x <- parseExpr
-                 return $ List [Atom "quoted", x]
+                 return $ List [Atom "quote", x]
